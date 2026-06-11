@@ -1,87 +1,40 @@
 import api from "./api";
 
 export const getRooms = async (params = {}) => {
-    const response = await api.get("/rooms", {
-        params
-    });
-
+    const response = await api.get("/rooms", {params});
     return response.data;
 };
 export const createRoom = async (formData) => {
-    const response = await api.post(
-        "/rooms",
-        formData,
-        {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }
-    );
-
+    const response = await api.post("/rooms",formData,{headers: {"Content-Type": "multipart/form-data"}});
     return response.data;
 };
 export const getRoomById = async (id) => {
     const response = await api.get(`/rooms/${id}`);
     return response.data;
 };
-
 export const updateRoom = async (
-    id,
-    formData
-) => {
-    const response = await api.put(
-        `/rooms/${id}`,
-        formData,
-        {
-            headers: {
-                "Content-Type":
-                    "multipart/form-data"
-            }
-        }
-    );
-
-    return response.data;
+        id,
+        formData
+    ) => {
+        const response = await api.put(`/rooms/${id}`,formData,{headers: {"Content-Type":"multipart/form-data"}});
+        return response.data;
 };
-
 export const deleteRoom = async (id) => {
-    const response = await api.delete(
-        `/rooms/${id}`
-    );
-
+    const response = await api.delete(`/rooms/${id}`);
     return response.data;
 };
 export const getRoomGallery = async (roomId) => {
-    const response = await api.get(
-        `/rooms/${roomId}/gallery`
-    );
-
+    const response = await api.get(`/rooms/${roomId}/gallery`);
     return response.data;
 };
-
 export const uploadRoomGallery = async (
-    roomId,
-    formData
-) => {
-    const response = await api.post(
-        `/rooms/${roomId}/gallery`,
-        formData,
-        {
-            headers: {
-                "Content-Type":
-                    "multipart/form-data"
-            }
-        }
-    );
-
+        roomId,
+        formData
+    ) => {const response = await api.post(`/rooms/${roomId}/gallery`,formData,{headers: {"Content-Type":"multipart/form-data"}});
     return response.data;
 };
-
 export const deleteGalleryImage = async (
-    galleryId
-) => {
-    const response = await api.delete(
-        `/rooms/gallery/${galleryId}`
-    );
-
+        galleryId
+    ) => {const response = await api.delete(`/rooms/gallery/${galleryId}`);
     return response.data;
 };

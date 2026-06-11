@@ -12,14 +12,12 @@ import {
     Images,
     PackageOpen
 } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from "../../components/Toast";
 
 export default function Rooms() {
     const navigate = useNavigate();
-
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [search, setSearch] = useState("");
@@ -27,16 +25,14 @@ export default function Rooms() {
         totalPage: 1,
         totalData: 0
     });
-
     const fetchRooms = useCallback(async () => {
         try {
             setLoading(true);
             const response = await getRooms({
                 page,
-                limit: 9, // Diubah ke 9 agar pas dengan grid 3 kolom
+                limit: 9,
                 search
             });
-
             setRooms(response.data);
             setPagination({
                 totalPage: response.totalPage,
@@ -49,15 +45,12 @@ export default function Rooms() {
             setLoading(false);
         }
     }, [page, search]);
-
     useEffect(() => {
         fetchRooms();
     }, [fetchRooms]);
-
     const handleDelete = async (id) => {
         const confirmed = window.confirm("Are you sure you want to delete this room?");
         if (!confirmed) return;
-
         try {
             await deleteRoom(id);
             toast.success("Room deleted successfully");
@@ -67,25 +60,19 @@ export default function Rooms() {
             toast.error(error?.response?.data?.message || "Failed to delete room");
         }
     };
-
     const handleSearch = (e) => {
         e.preventDefault();
         setPage(1);
         setSearch(searchTerm);
     };
-
     const availableRooms = rooms.filter((room) => room.status === "available").length;
     const maintenanceRooms = rooms.filter((room) => room.status === "maintenance").length;
-
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
-            {/* HEADER */}
             <div className="flex flex-col md:flex-row justify-between md:items-end gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900">Rooms Management</h1>
-                    <p className="text-sm text-slate-500 mt-1">
-                        Manage hotel rooms, availability, and pricing.
-                    </p>
+                    <p className="text-sm text-slate-500 mt-1">Manage hotel rooms, availability, and pricine</p>
                 </div>
                 <button
                     onClick={() => navigate("/admin/rooms/add")}
@@ -95,15 +82,11 @@ export default function Rooms() {
                     Add New Room
                 </button>
             </div>
-
-            {/* STATS */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <StatCard title="Total Rooms" value={pagination.totalData} icon={<BedDouble size={20} />} color="blue" />
                 <StatCard title="Available" value={availableRooms} icon={<Users size={20} />} color="emerald" />
                 <StatCard title="Maintenance" value={maintenanceRooms} icon={<Wrench size={20} />} color="amber" />
             </div>
-
-            {/* SEARCH */}
             <div className="bg-white rounded-2xl border border-slate-200 p-2 shadow-sm">
                 <form onSubmit={handleSearch} className="flex gap-2">
                     <div className="relative flex-1">
@@ -124,8 +107,6 @@ export default function Rooms() {
                     </button>
                 </form>
             </div>
-
-            {/* ROOM CARDS CONTENT */}
             {loading ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                     {[1, 2, 3, 4, 5, 6].map((n) => <SkeletonRoomCard key={n} />)}
@@ -140,10 +121,15 @@ export default function Rooms() {
                                 key={room.id}
                                 className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out group flex flex-col"
                             >
-                                {/* Image Section */}
                                 <div className="h-48 bg-slate-100 relative overflow-hidden shrink-0">
                                     <img
-                                        src={room.image ? `http://localhost:3000/uploads/${room.image}` : "https://placehold.co/600x400?text=No+Image"}
+                                        src={
+                                            room.gallery?.[0]?.image
+                                                ? `http://localhost:3000/uploads/${room.gallery[0].image}`
+                                                : room.image
+                                                ? `http://localhost:3000/uploads/${room.image}`
+                                                : "https://placehold.co/600x400?text=No+Image"
+                                        }
                                         alt={`Room ${room.room_number}`}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
@@ -157,20 +143,15 @@ export default function Rooms() {
                                         </span>
                                     </div>
                                 </div>
-
-                                {/* Detail Section */}
                                 <div className="p-5 flex-1 flex flex-col">
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
-                                            <h3 className="text-xl font-bold text-slate-900">
-                                                Room {room.room_number}
-                                            </h3>
+                                            <h3 className="text-xl font-bold text-slate-900">Room {room.room_number}</h3>
                                             <p className="text-sm text-slate-500 capitalize mt-0.5">
                                                 {room.room_type} Room
                                             </p>
                                         </div>
                                     </div>
-
                                     <div className="space-y-1.5 mb-6 flex-1">
                                         <p className="text-sm text-slate-600 flex items-center justify-between">
                                             <span>Capacity</span>
@@ -184,8 +165,6 @@ export default function Rooms() {
                                             </strong>
                                         </p>
                                     </div>
-
-                                    {/* Actions */}
                                     <div className="flex gap-2 mt-auto pt-4 border-t border-slate-100">
                                         <button
                                             onClick={() => navigate(`/admin/rooms/gallery/${room.id}`)}
@@ -213,8 +192,6 @@ export default function Rooms() {
                             </div>
                         ))}
                     </div>
-
-                    {/* PAGINATION */}
                     {pagination.totalPage > 1 && (
                         <div className="flex justify-center items-center gap-2 pt-4">
                             <button
@@ -241,9 +218,6 @@ export default function Rooms() {
         </div>
     );
 }
-
-/* ================= COMPACT COMPONENTS ================= */
-
 function StatCard({ title, value, icon, color }) {
     const bgColors = {
         emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
@@ -262,7 +236,6 @@ function StatCard({ title, value, icon, color }) {
         </div>
     );
 }
-
 function SkeletonRoomCard() {
     return (
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm animate-pulse flex flex-col h-[380px]">
@@ -285,7 +258,6 @@ function SkeletonRoomCard() {
         </div>
     );
 }
-
 function EmptyState({ search }) {
     return (
         <div className="flex flex-col items-center justify-center py-20 px-4 text-center border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50/50">

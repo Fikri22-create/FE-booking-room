@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createRoom } from "../../services/roomService";
 import { Upload, BedDouble, Image as ImageIcon } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from "../../components/Toast";
 
 export default function AddRoom() {
     const navigate = useNavigate();
@@ -16,39 +16,31 @@ export default function AddRoom() {
         price_per_night: "",
         description: ""
     });
-
     const handleChange = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value
         });
     };
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
         setImage(file);
         setPreview(URL.createObjectURL(file));
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             setLoading(true);
             const formData = new FormData();
-
             formData.append("room_number", form.room_number);
             formData.append("room_type", form.room_type);
             formData.append("capacity", form.capacity);
             formData.append("price_per_night", form.price_per_night);
             formData.append("description", form.description);
-
             if (image) {
                 formData.append("image", image);
             }
-
             await createRoom(formData);
             toast.success("Room created successfully! 🎉");
             navigate("/admin/rooms");
@@ -59,15 +51,11 @@ export default function AddRoom() {
             setLoading(false);
         }
     };
-
     return (
         <div className="max-w-5xl mx-auto animate-in fade-in duration-500">
-            {/* HEADER */}
             <div className="mb-6">
                 <h1 className="text-2xl font-bold text-slate-900">Add New Room</h1>
-                <p className="text-sm text-slate-500 mt-1">
-                    Fill in the details below to add a new room to your hotel.
-                </p>
+                <p className="text-sm text-slate-500 mt-1">Fill in the details below to add a new room to your hotel.</p>
             </div>
             <form
                 onSubmit={handleSubmit}
@@ -89,7 +77,6 @@ export default function AddRoom() {
                                 required
                             />
                         </div>
-
                         <div>
                             <label className="block mb-1.5 text-sm font-medium text-slate-700">
                                 Room Type
@@ -105,7 +92,6 @@ export default function AddRoom() {
                                 <option value="suite">Suite</option>
                             </select>
                         </div>
-
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block mb-1.5 text-sm font-medium text-slate-700">
@@ -122,7 +108,6 @@ export default function AddRoom() {
                                     required
                                 />
                             </div>
-
                             <div>
                                 <label className="block mb-1.5 text-sm font-medium text-slate-700">
                                     Price / Night (Rp)
@@ -168,7 +153,6 @@ export default function AddRoom() {
                                     <p className="text-xs text-slate-400 mt-1">PNG, JPG up to 2MB</p>
                                 </div>
                             )}
-
                             <input
                                 type="file"
                                 accept="image/png, image/jpeg, image/jpg"
@@ -200,7 +184,6 @@ export default function AddRoom() {
                     >
                         Cancel
                     </button>
-
                     <button
                         type="submit"
                         disabled={loading}

@@ -7,9 +7,7 @@ export default function Dashboard() {
     const [stats, setStats] = useState(null);
     const [topRooms, setTopRooms] = useState([]);
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
-        // ... (Logika fetchDashboard tetap sama persis seperti kode lu) ...
         const fetchDashboard = async () => {
             try {
                 const dashboardRes = await getDashboardStats();
@@ -51,15 +49,12 @@ export default function Dashboard() {
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
-            {/* OVERVIEW CARDS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <Card title="Total Revenue" value={`Rp ${(stats.totalRevenue || 0).toLocaleString("id-ID")}`} icon={<Wallet size={20} />} color="emerald" />
                 <Card title="Total Rooms" value={stats.totalRooms} icon={<BedDouble size={20} />} color="blue" />
                 <Card title="Total Users" value={stats.totalUsers} icon={<Users size={20} />} color="purple" />
                 <Card title="Total Bookings" value={stats.totalBookings} icon={<CalendarRange size={20} />} color="orange" />
             </div>
-
-            {/* CHARTS */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <div className="mb-6">
@@ -78,7 +73,6 @@ export default function Dashboard() {
                         </ResponsiveContainer>
                     </div>
                 </div>
-
                 <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <div className="mb-6">
                         <h3 className="font-bold text-slate-900">Top Rooms</h3>
@@ -96,8 +90,6 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-
-            {/* STATUS CARDS GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <h2 className="font-bold text-slate-900 mb-5">Booking Status</h2>
@@ -107,7 +99,6 @@ export default function Dashboard() {
                         <StatusMiniCard title="Rejected" value={stats.rejectedBookings} icon={<XCircle size={18}/>} color="rose" />
                     </div>
                 </div>
-
                 <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                     <h2 className="font-bold text-slate-900 mb-5">Payment Analytics</h2>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -121,8 +112,6 @@ export default function Dashboard() {
         </div>
     );
 }
-
-/* ================= COMPACT COMPONENTS ================= */
 function Card({ title, value, icon, color }) {
     const bgColors = {
         emerald: "bg-emerald-50 text-emerald-600",

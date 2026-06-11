@@ -4,20 +4,16 @@ import { BedDouble, CalendarCheck, Clock3 } from "lucide-react";
 
 export default function UserDashboard() {
     const [bookings, setBookings] = useState([]);
-
     useEffect(() => {
         load();
     }, []);
-
     const load = async () => {
         const res = await getMyBookings();
         setBookings(res?.data || []);
     };
-
     const total = bookings.length;
     const pending = bookings.filter(b => b.status === "pending").length;
     const approved = bookings.filter(b => b.status === "approved").length;
-
     return (
         <div className="space-y-6">
 

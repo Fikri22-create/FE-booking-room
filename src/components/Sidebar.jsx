@@ -29,28 +29,11 @@ export default function Sidebar({ role }) {
                     </div>
                     <div>
                         <h1 className="font-bold text-lg text-slate-900 tracking-tight leading-none">Roomora</h1>
-
-                        <p
-                            className="
-                            text-[10px]
-                            uppercase
-                            tracking-[0.18em]
-                            text-slate-400
-                            font-semibold
-                            mt-1
-                            "
-                        >
-                            Hotel Management
-                        </p>
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400 font-semiboldmt-1">Hotel Management</p>
                     </div>
-
                 </div>
-
             </div>
-
-            {/* MENU */}
             <div className="flex-1 px-4 py-6 overflow-y-auto">
-
                 <p
                     className="
                     text-[11px]
@@ -161,7 +144,6 @@ export default function Sidebar({ role }) {
 
             </div>
 
-            {/* FOOTER */}
             <div className="px-6 py-4 border-t border-slate-100">
 
                 <div className="flex items-center gap-2">

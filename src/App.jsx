@@ -5,11 +5,9 @@ import {
     Navigate
 } from "react-router-dom";
 
-/* AUTH */
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
-/* ADMIN */
 import Dashboard from "./pages/admin/Dashboard";
 import Rooms from "./pages/admin/Rooms";
 import AddRoom from "./pages/admin/AddRoom";
@@ -22,7 +20,6 @@ import PaymentDetail from "./pages/admin/PaymentDetail";
 import BookingDetail from "./pages/admin/BookingDetail";
 import UserDetail from "./pages/admin/UserDetail";
 
-/* USER */
 import UserRooms from "./pages/user/Rooms";
 import RoomDetail from "./pages/user/RoomDetail";
 import BookingForm from "./pages/user/BookingForm";
@@ -30,10 +27,8 @@ import MyBookings from "./pages/user/MyBookings";
 import PaymentUpload from "./pages/user/PaymentUpload";
 import MyPayments from "./pages/user/MyPayments";
 
-/* LAYOUT */
 import BaseLayout from "./layouts/BaseLayout";
 
-/* ROUTE GUARD */
 import PrivateRoute from "./routes/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
 
@@ -41,15 +36,9 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-
-                {/* DEFAULT */}
                 <Route path="/" element={<Navigate to="/login" />} />
-
-                {/* AUTH */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-
-                {/* ================= ADMIN ================= */}
                 <Route path="/admin/dashboard" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -59,7 +48,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/rooms" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -69,7 +57,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/rooms/add" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -79,7 +66,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/rooms/edit/:id" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -89,7 +75,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/rooms/gallery/:id" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -99,7 +84,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/bookings" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -109,7 +93,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/payments" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -119,7 +102,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
-
                 <Route path="/admin/users" element={
                     <PrivateRoute>
                         <AdminRoute>
@@ -156,8 +138,6 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 }/>
-
-                {/* ================= USER ================= */}
                 <Route path="/user/rooms" element={
                     <PrivateRoute>
                         <BaseLayout>
@@ -165,7 +145,6 @@ export default function App() {
                         </BaseLayout>
                     </PrivateRoute>
                 } />
-
                 <Route path="/user/rooms/:id" element={
                     <PrivateRoute>
                         <BaseLayout>
@@ -173,7 +152,6 @@ export default function App() {
                         </BaseLayout>
                     </PrivateRoute>
                 } />
-
                 <Route path="/user/book/:id" element={
                     <PrivateRoute>
                         <BaseLayout>
@@ -181,7 +159,6 @@ export default function App() {
                         </BaseLayout>
                     </PrivateRoute>
                 } />
-
                 <Route path="/user/my-bookings" element={
                     <PrivateRoute>
                         <BaseLayout>
@@ -189,7 +166,6 @@ export default function App() {
                         </BaseLayout>
                     </PrivateRoute>
                 } />
-
                 <Route path="/user/payment/:bookingId" element={
                     <PrivateRoute>
                         <BaseLayout>
@@ -204,7 +180,6 @@ export default function App() {
                         </BaseLayout>
                     </PrivateRoute>
                 } />
-
             </Routes>
         </BrowserRouter>
     );

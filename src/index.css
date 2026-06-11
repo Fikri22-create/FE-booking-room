@@ -6,3 +6,22 @@ body {
   background: #f8fafc;
   font-family: sans-serif;
 }
+
+/* ── Custom toast animations ── */
+@keyframes shrink {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(2rem); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.animate-shrink {
+  animation: shrink linear forwards;
+}
+
+.toast-enter {
+  animation: slideInRight 0.25s ease-out forwards;
+}

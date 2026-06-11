@@ -12,13 +12,10 @@ export default function UserRooms() {
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
-
     const fetchRooms = useCallback(async () => {
         try {
             setLoading(true);
-
             const res = await getRooms();
-
             setRooms(res?.data || []);
         } catch (err) {
             console.error(err);
@@ -27,15 +24,12 @@ export default function UserRooms() {
             setLoading(false);
         }
     }, []);
-
     useEffect(() => {
         fetchRooms();
     }, [fetchRooms]);
-
     const filteredRooms = useMemo(() => {
         return rooms.filter((room) => {
             const keyword = search.toLowerCase();
-
             return (
                 room.room_number
                     ?.toString()
@@ -47,38 +41,25 @@ export default function UserRooms() {
             );
         });
     }, [rooms, search]);
-
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
-
-            {/* HEADER */}
             <div>
-                <h1 className="text-3xl font-bold text-slate-900">
-                    Available Rooms
-                </h1>
-
-                <p className="text-sm text-slate-500 mt-1">
-                    Browse and book available rooms.
-                </p>
+                <h1 className="text-3xl font-bold text-slate-900">Available Rooms</h1>
+                <p className="text-sm text-slate-500 mt-1">Browse and book available rooms.</p>
             </div>
-
-            {/* STATS */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-
                 <StatCard
                     title="Total Rooms"
                     value={rooms.length}
                     icon={<BedDouble size={20} />}
                     color="blue"
                 />
-
                 <StatCard
                     title="Available"
                     value={rooms.length}
                     icon={<BedDouble size={20} />}
                     color="emerald"
                 />
-
                 <StatCard
                     title="Room Types"
                     value={
@@ -89,19 +70,13 @@ export default function UserRooms() {
                     icon={<Users size={20} />}
                     color="amber"
                 />
-
             </div>
-
-            {/* SEARCH */}
             <div className="bg-white rounded-2xl border border-slate-200 p-3 shadow-sm">
-
                 <div className="relative">
-
                     <Search
                         size={18}
                         className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
                         value={search}
                         onChange={(e) =>
@@ -110,12 +85,8 @@ export default function UserRooms() {
                         placeholder="Search room number or room type..."
                         className="w-full pl-11 pr-4 py-3 rounded-xl bg-transparent focus:outline-none focus:bg-slate-50 text-sm"
                     />
-
                 </div>
-
             </div>
-
-            {/* ROOM GRID */}
             {loading ? (
                 <div className="grid md:grid-cols-3 gap-6">
                     {Array.from({ length: 6 }).map((_, i) => (
@@ -132,22 +103,14 @@ export default function UserRooms() {
                 </div>
             ) : filteredRooms.length === 0 ? (
                 <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
-                    <p className="font-semibold text-slate-700">
-                        No rooms found
-                    </p>
-
-                    <p className="text-sm text-slate-500 mt-1">
-                        Try another keyword
-                    </p>
+                    <p className="font-semibold text-slate-700">No rooms found</p>
+                    <p className="text-sm text-slate-500 mt-1">Try another keyword</p>
                 </div>
             ) : (
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-
                     {filteredRooms.map((room) => {
-
                         const image =
-                            room.gallery?.[0]?.image;
-
+                            room.gallery?.[0]?.image || room.image;
                         return (
                             <div
                                 key={room.id}
@@ -163,10 +126,7 @@ export default function UserRooms() {
                                     duration-300
                                 "
                             >
-
-                                {/* IMAGE */}
                                 <div className="h-52 bg-slate-100 overflow-hidden">
-
                                     {image ? (
                                         <img
                                             src={`http://localhost:3000/uploads/${image}`}
@@ -178,50 +138,25 @@ export default function UserRooms() {
                                             No Image
                                         </div>
                                     )}
-
                                 </div>
-
-                                {/* CONTENT */}
                                 <div className="p-5">
-
                                     <div className="flex justify-between items-start">
-
                                         <div>
-                                            <h2 className="text-xl font-bold text-slate-900">
-                                                Room {room.room_number}
-                                            </h2>
-
-                                            <p className="text-sm text-slate-500">
-                                                {room.room_type}
-                                            </p>
+                                            <h2 className="text-xl font-bold text-slate-900">Room {room.room_number}</h2>
+                                            <p className="text-sm text-slate-500">{room.room_type}</p>
                                         </div>
-
-                                        <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">
-                                            Available
-                                        </span>
-
+                                        <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">Available</span>
                                     </div>
-
-                                    <div className="mt-4 flex items-center gap-2 text-sm text-slate-600">
-                                        <Users size={15} />
-                                        Capacity {room.capacity} Guests
-                                    </div>
-
+                                    <div className="mt-4 flex items-center gap-2 text-sm text-slate-600"><Users size={15} />Capacity {room.capacity} Guests</div>
                                     <div className="mt-4">
-
-                                        <p className="text-xs uppercase tracking-wider text-slate-400">
-                                            Price Per Night
-                                        </p>
-
+                                        <p className="text-xs uppercase tracking-wider text-slate-400">Price Per Night</p>
                                         <h3 className="text-2xl font-bold text-emerald-600 mt-1">
                                             Rp{" "}
                                             {Number(
                                                 room.price_per_night
                                             ).toLocaleString("id-ID")}
                                         </h3>
-
                                     </div>
-
                                     <Link
                                         to={`/user/rooms/${room.id}`}
                                         className="
@@ -243,9 +178,7 @@ export default function UserRooms() {
                                         View Detail
                                         <ArrowRight size={16} />
                                     </Link>
-
                                 </div>
-
                             </div>
                         );
                     })}
@@ -254,36 +187,21 @@ export default function UserRooms() {
         </div>
     );
 }
-
-/* ================= STAT CARD ================= */
-
 function StatCard({ title, value, icon, color }) {
-
     const colors = {
         blue: "bg-blue-50 text-blue-600 border-blue-100",
         emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
         amber: "bg-amber-50 text-amber-600 border-amber-100"
     };
-
     return (
         <div className="bg-white rounded-2xl border border-slate-200 p-5 flex justify-between items-center shadow-sm">
-
             <div>
-                <p className="text-xs uppercase tracking-wider text-slate-500">
-                    {title}
-                </p>
-
-                <h2 className="text-2xl font-bold text-slate-900 mt-1">
-                    {value}
-                </h2>
+                <p className="text-xs uppercase tracking-wider text-slate-500">{title}</p>
+                <h2 className="text-2xl font-bold text-slate-900 mt-1">{value}</h2>
             </div>
-
-            <div
-                className={`w-12 h-12 rounded-xl border flex items-center justify-center ${colors[color]}`}
-            >
+            <div className={`w-12 h-12 rounded-xl border flex items-center justify-center ${colors[color]}`}>
                 {icon}
             </div>
-
         </div>
     );
 }

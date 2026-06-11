@@ -10,7 +10,7 @@ import {
     Loader2,
     FileQuestion
 } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from "../../components/Toast";
 import { Link } from "react-router-dom";
 
 export default function Bookings() {
@@ -18,7 +18,6 @@ export default function Bookings() {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [exporting, setExporting] = useState(false);
-
     const fetchBookings = async () => {
         try {
             setLoading(true);
@@ -31,11 +30,9 @@ export default function Bookings() {
             setLoading(false);
         }
     };
-
     useEffect(() => {
         fetchBookings();
     }, []);
-
     const handleStatus = async (id, status) => {
         try {
             await updateBookingStatus(id, status);
@@ -46,20 +43,17 @@ export default function Bookings() {
             toast.error("Failed to update booking status");
         }
     };
-
     const handleExport = async () => {
         try {
             setExporting(true);
             const response = await exportBookingsExcel();
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement("a");
-            
             link.href = url;
             link.setAttribute("download", "bookings.xlsx");
             document.body.appendChild(link);
             link.click();
             link.remove();
-            
             toast.success("Export successful! Downloading...");
         } catch (error) {
             console.error(error);
@@ -68,7 +62,6 @@ export default function Bookings() {
             setExporting(false);
         }
     };
-
     const filteredBookings = useMemo(() => {
         return bookings.filter((booking) => {
             const keyword = search.toLowerCase();
@@ -79,11 +72,9 @@ export default function Bookings() {
             );
         });
     }, [bookings, search]);
-
     const pending = bookings.filter((b) => b.status === "pending").length;
     const approved = bookings.filter((b) => b.status === "approved").length;
     const rejected = bookings.filter((b) => b.status === "rejected").length;
-
     const getStatusBadge = (status) => {
         switch (status) {
             case "approved":
@@ -106,10 +97,8 @@ export default function Bookings() {
                 );
         }
     };
-
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
-            {/* HEADER */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900">Bookings</h1>
@@ -126,8 +115,6 @@ export default function Bookings() {
                     Export Excel
                 </button>
             </div>
-
-            {/* STATS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <StatCard title="Total Bookings" value={bookings.length} icon={<CalendarRange size={20} />} color="blue" />
                 <StatCard title="Pending" value={pending} icon={<Clock3 size={20} />} color="amber" />
@@ -146,8 +133,6 @@ export default function Bookings() {
                     />
                 </div>
             </div>
-
-            {/* TABLE */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left whitespace-nowrap">
@@ -238,9 +223,6 @@ export default function Bookings() {
         </div>
     );
 }
-
-/* ================= COMPACT COMPONENTS ================= */
-
 function StatCard({ title, value, icon, color }) {
     const bgColors = {
         emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
@@ -260,7 +242,6 @@ function StatCard({ title, value, icon, color }) {
         </div>
     );
 }
-
 function SkeletonTableRows({ rows, cols }) {
     return Array.from({ length: rows }).map((_, rowIndex) => (
         <tr key={rowIndex} className="animate-pulse">
@@ -272,7 +253,6 @@ function SkeletonTableRows({ rows, cols }) {
         </tr>
     ));
 }
-
 function EmptyState({ search }) {
     return (
         <div className="flex flex-col items-center justify-center py-8">
