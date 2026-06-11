@@ -32,3 +32,8 @@ export const refundPayment = async (id) => {
 
     return response.data;
 };
+
+export const getMyPayments = async () => {
+    const response = await api.get("/payments/me");
+    return response.data;
+};

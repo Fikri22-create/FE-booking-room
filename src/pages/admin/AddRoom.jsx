@@ -69,14 +69,11 @@ export default function AddRoom() {
                     Fill in the details below to add a new room to your hotel.
                 </p>
             </div>
-
-            {/* FORM CONTAINER */}
             <form
                 onSubmit={handleSubmit}
                 className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8"
             >
                 <div className="grid lg:grid-cols-2 gap-8">
-                    {/* LEFT COLUMN: Input Fields */}
                     <div className="space-y-5">
                         <div>
                             <label className="block mb-1.5 text-sm font-medium text-slate-700">
@@ -143,8 +140,6 @@ export default function AddRoom() {
                             </div>
                         </div>
                     </div>
-
-                    {/* RIGHT COLUMN: Image Upload */}
                     <div>
                         <label className="block mb-1.5 text-sm font-medium text-slate-700">
                             Cover Image
@@ -183,8 +178,6 @@ export default function AddRoom() {
                         </label>
                     </div>
                 </div>
-
-                {/* BOTTOM: Description */}
                 <div className="mt-6">
                     <label className="block mb-1.5 text-sm font-medium text-slate-700">
                         Room Description
@@ -199,8 +192,6 @@ export default function AddRoom() {
                         required
                     />
                 </div>
-
-                {/* ACTIONS */}
                 <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-slate-100">
                     <button
                         type="button"

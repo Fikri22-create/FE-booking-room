@@ -8,6 +8,7 @@ import {
     Eye
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function Payments() {
     const [payments, setPayments] = useState([]);
@@ -172,8 +173,8 @@ export default function Payments() {
                                 filteredPayments.map((p) => (
                                     <tr key={p.id} className="hover:bg-slate-50">
                                         <td className="px-6 py-4 font-medium">{p.payment_code}</td>
-                                        <td className="px-6 py-4">{p.Booking?.User?.name}</td>
-                                        <td className="px-6 py-4">Room {p.Booking?.Room?.room_number}</td>
+                                        <td className="px-6 py-4">{p.booking?.user?.name}</td>
+                                        <td className="px-6 py-4">Room {p.booking?.room?.room_number}</td>
                                         <td className="px-6 py-4 capitalize">{p.payment_method}</td>
                                         <td className="px-6 py-4 font-semibold">
                                             Rp {Number(p.amount).toLocaleString("id-ID")}
@@ -197,6 +198,12 @@ export default function Payments() {
 
                                         <td className="px-6 py-4">
                                             <div className="flex gap-2 justify-center">
+                                                <Link
+                                                    to={`/admin/payments/${p.id}`}
+                                                    className="px-3 py-1.5 text-xs bg-slate-700 text-white rounded-lg"
+                                                >
+                                                    Detail
+                                                </Link>
                                                 {p.status === "pending" && (
                                                     <button
                                                         onClick={() => handleVerify(p.id)}

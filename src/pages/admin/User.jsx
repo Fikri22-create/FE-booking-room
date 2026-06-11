@@ -7,6 +7,7 @@ import {
     Shield,
     Calendar
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -119,6 +120,7 @@ export default function Users() {
                                 <th className="px-6 py-4 text-left">Email</th>
                                 <th className="px-6 py-4 text-left">Role</th>
                                 <th className="px-6 py-4 text-left">Created</th>
+                                <th className="px-6 py-4 text-left">Action</th>
                             </tr>
                         </thead>
 
@@ -126,7 +128,7 @@ export default function Users() {
 
                             {filteredUsers.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="py-12 text-center text-slate-500">
+                                    <td colSpan={6} className="py-12 text-center text-slate-500">
                                         No users found
                                     </td>
                                 </tr>
@@ -166,6 +168,14 @@ export default function Users() {
                                                     ? new Date(user.createdAt).toLocaleDateString("id-ID")
                                                     : "-"}
                                             </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <Link
+                                                to={`/admin/users/${user.id}`}
+                                                className="px-3 py-1.5 rounded-lg bg-slate-700 text-white text-xs hover:bg-slate-800"
+                                            >
+                                                Detail
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))

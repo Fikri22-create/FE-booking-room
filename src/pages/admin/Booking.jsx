@@ -11,6 +11,7 @@ import {
     FileQuestion
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function Bookings() {
     const [bookings, setBookings] = useState([]);
@@ -133,8 +134,6 @@ export default function Bookings() {
                 <StatCard title="Approved" value={approved} icon={<CheckCircle2 size={20} />} color="emerald" />
                 <StatCard title="Rejected" value={rejected} icon={<XCircle size={20} />} color="rose" />
             </div>
-
-            {/* SEARCH */}
             <div className="bg-white rounded-2xl border border-slate-200 p-2 shadow-sm">
                 <div className="relative">
                     <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -183,7 +182,7 @@ export default function Bookings() {
                                             {booking.user?.name || "Unknown User"}
                                         </td>
                                         <td className="px-6 py-4 text-slate-600">
-                                            Rm {booking.room?.room_number || "N/A"}
+                                            Room {booking.room?.room_number || "N/A"}
                                         </td>
                                         <td className="px-6 py-4 text-slate-600">
                                             {booking.check_in}
@@ -198,7 +197,14 @@ export default function Bookings() {
                                             {getStatusBadge(booking.status)}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {booking.status === "pending" ? (
+                                            <div className="flex items-center justify-center gap-2">
+                                                <Link
+                                                    to={`/admin/bookings/${booking.id}`}
+                                                    className="px-3 py-1.5 rounded-lg bg-slate-700 text-white text-xs hover:bg-slate-800"
+                                                >
+                                                    Detail
+                                                </Link>
+                                                {booking.status === "pending" ? (
                                                 <div className="flex items-center justify-center gap-2">
                                                     <button
                                                         onClick={() => handleStatus(booking.id, "approved")}
@@ -220,6 +226,7 @@ export default function Bookings() {
                                                     </span>
                                                 </div>
                                             )}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))

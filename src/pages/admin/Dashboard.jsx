@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDashboardStats, getTopRooms } from "../../services/dashboardService";
-import { BedDouble, Users, CalendarRange, Wallet, Clock3, CheckCircle2, XCircle, CreditCard } from "lucide-react";
+import { BedDouble, Users, CalendarRange, Wallet, Clock3, CheckCircle2, XCircle, } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Bar } from "recharts";
 
 export default function Dashboard() {
@@ -45,7 +45,7 @@ export default function Dashboard() {
     })) || [];
 
     const topRoomsData = topRooms?.map((room) => ({
-        room: room.Room?.room_number || `Rm ${room.roomId}`,
+        room: room.Room?.room_number || `Room ${room.roomId}`,
         bookings: Number(room.bookingsCount || 0)
     })) || [];
 

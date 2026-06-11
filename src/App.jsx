@@ -18,6 +18,9 @@ import RoomGallery from "./pages/admin/RoomGallery";
 import Bookings from "./pages/admin/Booking";
 import Payments from "./pages/admin/Payment";
 import Users from "./pages/admin/User";
+import PaymentDetail from "./pages/admin/PaymentDetail";
+import BookingDetail from "./pages/admin/BookingDetail";
+import UserDetail from "./pages/admin/UserDetail";
 
 /* USER */
 import UserRooms from "./pages/user/Rooms";
@@ -25,6 +28,7 @@ import RoomDetail from "./pages/user/RoomDetail";
 import BookingForm from "./pages/user/BookingForm";
 import MyBookings from "./pages/user/MyBookings";
 import PaymentUpload from "./pages/user/PaymentUpload";
+import MyPayments from "./pages/user/MyPayments";
 
 /* LAYOUT */
 import BaseLayout from "./layouts/BaseLayout";
@@ -125,6 +129,33 @@ export default function App() {
                         </AdminRoute>
                     </PrivateRoute>
                 } />
+                <Route path="/admin/payments/:id" element={
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <BaseLayout>
+                                <PaymentDetail />
+                            </BaseLayout>
+                        </AdminRoute>
+                    </PrivateRoute>
+                }/>
+                <Route path="/admin/bookings/:id" element={
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <BaseLayout>
+                                <BookingDetail />
+                            </BaseLayout>
+                        </AdminRoute>
+                    </PrivateRoute>
+                }/>
+                <Route path="/admin/users/:id" element={
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <BaseLayout>
+                                <UserDetail />
+                            </BaseLayout>
+                        </AdminRoute>
+                    </PrivateRoute>
+                }/>
 
                 {/* ================= USER ================= */}
                 <Route path="/user/rooms" element={
@@ -163,6 +194,13 @@ export default function App() {
                     <PrivateRoute>
                         <BaseLayout>
                             <PaymentUpload />
+                        </BaseLayout>
+                    </PrivateRoute>
+                } />
+                <Route path="/user/payments" element={
+                    <PrivateRoute>
+                        <BaseLayout>
+                            <MyPayments />
                         </BaseLayout>
                     </PrivateRoute>
                 } />

@@ -1,58 +1,20 @@
 import { Link, useLocation } from "react-router-dom";
-import {
-    LayoutDashboard,
-    BedDouble,
-    CalendarRange,
-    Wallet,
-    Users,
-    Hotel,
-    ChevronRight
-} from "lucide-react";
+import { LayoutDashboard, BedDouble, CalendarRange, Wallet, Users, Hotel, ChevronRight } from "lucide-react";
 
 export default function Sidebar({ role }) {
     const location = useLocation();
-
     const adminMenus = [
-        {
-            name: "Dashboard",
-            icon: LayoutDashboard,
-            path: "/admin/dashboard"
-        },
-        {
-            name: "Rooms",
-            icon: BedDouble,
-            path: "/admin/rooms"
-        },
-        {
-            name: "Bookings",
-            icon: CalendarRange,
-            path: "/admin/bookings"
-        },
-        {
-            name: "Payments",
-            icon: Wallet,
-            path: "/admin/payments"
-        },
-        {
-            name: "Users",
-            icon: Users,
-            path: "/admin/users"
-        }
+        { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
+        { name: "Rooms", icon: BedDouble, path: "/admin/rooms" },
+        { name: "Bookings", icon: CalendarRange, path: "/admin/bookings" },
+        { name: "Payments", icon: Wallet, path: "/admin/payments" },
+        { name: "Users", icon: Users, path: "/admin/users" }
     ];
-
     const userMenus = [
-        {
-            name: "Rooms",
-            icon: BedDouble,
-            path: "/user/rooms"
-        },
-        {
-            name: "My Bookings",
-            icon: CalendarRange,
-            path: "/user/my-bookings"
-        }
+        { name: "Rooms", icon: BedDouble, path: "/user/rooms" },
+        { name: "My Bookings", icon: CalendarRange, path: "/user/my-bookings" },
+        { name: "My Payments", icon: Wallet, path: "/user/payments" }
     ];
-
     const menus =
         role === "admin"
             ? adminMenus
@@ -60,32 +22,13 @@ export default function Sidebar({ role }) {
 
     return (
         <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0">
-
-            {/* LOGO */}
             <div className="h-20 px-6 flex items-center border-b border-slate-100">
-
                 <div className="flex items-center gap-3">
-
-                    <div
-                        className="
-                        w-11
-                        h-11
-                        rounded-2xl
-                        bg-slate-50
-                        border
-                        border-slate-200
-                        flex
-                        items-center
-                        justify-center
-                        "
-                    >
+                    <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center">
                         <Hotel size={24} className="text-slate-500" />  
                     </div>
-
                     <div>
-                        <h1 className="font-bold text-lg text-slate-900 tracking-tight leading-none">
-                            Roomora
-                        </h1>
+                        <h1 className="font-bold text-lg text-slate-900 tracking-tight leading-none">Roomora</h1>
 
                         <p
                             className="
