@@ -2,7 +2,6 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Navigate
 } from "react-router-dom";
 
 import Login from "./pages/auth/Login";
@@ -31,12 +30,13 @@ import BaseLayout from "./layouts/BaseLayout";
 
 import PrivateRoute from "./routes/PrivateRoute";
 import AdminRoute from "./routes/AdminRoute";
+import Landingpage from "./pages/public/LandingPage";
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/" element={<Landingpage/>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/admin/dashboard" element={

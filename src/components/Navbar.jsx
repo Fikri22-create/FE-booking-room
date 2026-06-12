@@ -9,7 +9,7 @@ export default function Navbar({ role }) {
         <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-6 md:px-8 flex justify-between items-center sticky top-0 z-40">
             <div>
                 <h2 className="text-base font-bold text-slate-900 flex items-center gap-1.5 leading-none">
-                    Welcome back, {user?.name?.split(" ")[0] || "User"} <span className="animate-pulse">👋</span>
+                    Welcome back, {user?.name?.split(" ")[0] || "User"} <span className="animate-pulse"></span>
                 </h2>
                 <p className="text-xs text-slate-500 mt-1.5 font-medium">
                     {role === "admin"

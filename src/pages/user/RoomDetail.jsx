@@ -146,6 +146,8 @@ export default function RoomDetail() {
                             <div className="bg-slate-50 rounded-xl p-3 text-sm">Free WiFi</div>
                             <div className="bg-slate-50 rounded-xl p-3 text-sm">Smart TV</div>
                             <div className="bg-slate-50 rounded-xl p-3 text-sm">Bathroom</div>
+                            <div className="bg-slate-50 rounded-xl p-3 text-sm">24h room service</div>
+                            <div className="bg-slate-50 rounded-xl p-3 text-sm">In-Room Safe</div>
                         </div>
                     </div>
                     <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
